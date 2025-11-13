@@ -175,6 +175,8 @@ Workflow file: `.github/workflows/deploy.yml`
 - Do not allow bypassing the above settings; include administrators.
 - Disallow force pushes and deletions on `main`.
 
+Solo maintenance: set approvals to `0` (no reviews required) while keeping required status checks, up‑to‑date branches, conversation resolution, and linear history.
+
 ## Pages Deployment — Step‑by‑Step
 
 - Enable Pages: Settings → Pages → Source: GitHub Actions.
