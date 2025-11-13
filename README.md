@@ -1,5 +1,8 @@
 # React + TypeScript + Vite — CI/CD, Tests, and Best Practices
 
+Production-grade setup with tests, commit conventions, and automated CI/CD to GitHub Pages.
+[![CI](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml) [![Deploy](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://casaislabs.github.io/React-CI-CD/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ## Table of Contents
 
 - [Highlights](#highlights)
