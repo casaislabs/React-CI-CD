@@ -160,11 +160,17 @@ Workflow file: `.github/workflows/deploy.yml`
 
 ## Branch Protection (Recommended)
 
-- Settings → Branches → Add rule for `main`:
-- Require a pull request before merging
-- Require status checks to pass before merging (mark `CI`, `Commitlint`, `Semantic Pull Request` as required)
-- Require branches to be up to date before merging
-- Optional: Require linear history and minimum 1 approval
+- Settings → Branches → Add rule for `main`.
+- Require a pull request before merging.
+- Require approvals: 1.
+- Dismiss stale approvals when new commits are pushed.
+- Require conversation resolution before merging.
+- Require status checks to pass before merging:
+  - Required checks: `commitlint`, `build-and-test (20)`, `validate-title`.
+- Require branches to be up to date before merging.
+- Require linear history.
+- Do not allow bypassing the above settings; include administrators.
+- Disallow force pushes and deletions on `main`.
 
 ## Pages Deployment — Step‑by‑Step
 
