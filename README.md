@@ -1,73 +1,185 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite — CI/CD, Tests, and Best Practices
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Highlights](#highlights)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Scripts](#scripts)
+- [Testing](#testing)
+- [Linting and Formatting](#linting-and-formatting)
+- [TypeScript](#typescript)
+- [Commit Conventions and Git Hooks](#commit-conventions-and-git-hooks)
+- [CI (GitHub Actions)](#ci-github-actions)
+- [CD (GitHub Pages)](#cd-github-pages)
+- [Dependabot](#dependabot)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project showcases a professional setup for a Vite + React + TypeScript application, highlighting unit/integration testing, E2E testing, strict linting and typing, commit conventions, and automated CI/CD.
 
-## React Compiler
+## Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Strict TypeScript with enhanced safety options
+- ESLint with TypeScript, React hooks, Hot Refresh, and accessibility rules
+- Prettier formatting integrated with lint-staged and Husky pre-commit hooks
+- Conventional Commits enforced via Commitlint
+- Vitest + React Testing Library for unit/integration tests with coverage
+- Playwright for E2E tests using the production preview server
+- GitHub Actions: CI pipeline (lint, typecheck, unit tests + coverage, build, E2E)
+- GitHub Pages deployment with correct base path
+- Dependabot for weekly npm dependency updates
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `React` + `Vite` + `TypeScript`
+- `ESLint` (`@typescript-eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-plugin-jsx-a11y`)
+- `Prettier`
+- `Vitest`, `@testing-library/react`, `@testing-library/jest-dom`
+- `Playwright`
+- `Husky` + `lint-staged` + `Commitlint`
+- `GitHub Actions` + `GitHub Pages`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Prerequisites:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js `>=20` and npm
+
+Install dependencies:
+
+```
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Husky hooks are installed automatically through the `prepare` script. If needed, run:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run prepare
+```
+
+Start development server:
+
+```
+npm run dev
+```
+
+## Scripts
+
+- `npm run dev` — start Vite dev server
+- `npm run build` — TypeScript build graph then Vite production build
+- `npm run preview` — serve `dist` on `http://localhost:4173`
+- `npm run lint` — run ESLint across the repo
+- `npm run lint:fix` — auto-fix ESLint issues
+- `npm run typecheck` — strict type checking for app and node configs
+- `npm run format` / `npm run format:check` — Prettier write/check
+- `npm run test` — run Vitest unit/integration tests
+- `npm run test:coverage` — Vitest with coverage (text, html, lcov)
+- `npm run test:e2e` — build and run Playwright E2E tests
+
+## Testing
+
+Unit/Integration (Vitest + Testing Library):
+
+```
+npm run test
+npm run test:coverage
+```
+
+- Vitest configuration lives in `vitest.config.ts` with jsdom environment, setup file, coverage reporters, and exclusions.
+- Extended matchers from `@testing-library/jest-dom` are registered in `src/test/setup.ts`.
+- Example tests:
+  - `src/App.test.tsx` — renders title and verifies counter interaction
+  - `src/main.test.tsx` — loads the app entry and checks the heading appears
+
+E2E (Playwright):
+
+```
+npx playwright install
+npm run test:e2e
+```
+
+- `playwright.config.ts` starts `vite preview` against the built `dist`, ensuring tests run against the production build.
+- Example spec: `tests/e2e/app.spec.ts` — validates title and counter increment.
+
+## Linting and Formatting
+
+- ESLint configuration is in `eslint.config.js` with TypeScript, React Hooks, Refresh, and a11y rules. Prettier compatibility is enabled to avoid stylistic conflicts.
+- Prettier configuration is in `prettier.config.cjs`.
+- `lint-staged` configuration is in `.lintstagedrc.json` to fix and format staged files on commit.
+
+## TypeScript
+
+- Strict mode is enabled with additional safety options like `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` in `tsconfig.app.json` and `tsconfig.node.json`.
+- Vitest globals are available through `types: ["vite/client", "vitest/globals"]` in `tsconfig.app.json`.
+
+## Commit Conventions and Git Hooks
+
+- Conventional Commits enforced with Commitlint (`commitlint.config.cjs`). Examples:
+  - `feat: add counter test`
+  - `fix: correct accessibility alt text`
+- Husky hooks:
+  - `.husky/pre-commit` runs `lint-staged` to fix/format staged files
+  - `.husky/commit-msg` validates commit messages
+
+## CI (GitHub Actions)
+
+Workflow file: `.github/workflows/ci.yml`
+
+- Triggers on `push` and `pull_request` to `main`/`master`
+- Steps:
+  - Checkout and setup Node with npm cache
+  - Install dependencies via `npm ci`
+  - Run `lint` and `typecheck`
+  - Run unit/integration tests with coverage
+  - Build the project
+  - Install Playwright browsers and run E2E tests
+  - Upload coverage artifact
+
+## CD (GitHub Pages)
+
+Workflow file: `.github/workflows/deploy.yml`
+
+- On push to `main`/`master`, builds with `--base=/<repository-name>/` to support GitHub Pages routing
+- Publishes `dist` via `actions/deploy-pages`
+- After enabling Pages (Settings → Pages → Source: "GitHub Actions"), the deployment URL appears in the `deploy` job output
+
+## Dependabot
+
+- `.github/dependabot.yml` updates npm dependencies weekly, opening PRs automatically.
+
+## Project Structure
+
+```
+├─ src/
+│  ├─ App.tsx
+│  ├─ main.tsx
+│  ├─ App.test.tsx
+│  ├─ main.test.tsx
+│  └─ test/setup.ts
+├─ tests/
+│  └─ e2e/app.spec.ts
+├─ eslint.config.js
+├─ vitest.config.ts
+├─ playwright.config.ts
+├─ prettier.config.cjs
+├─ .lintstagedrc.json
+├─ .husky/
+│  ├─ pre-commit
+│  └─ commit-msg
+└─ .github/workflows/
+   ├─ ci.yml
+   └─ deploy.yml
+```
+
+## Troubleshooting
+
+- Vitest runs E2E tests unexpectedly: ensure `vitest.config.ts` excludes `tests/e2e/**`.
+- Missing `test` globals: ensure `types: ["vitest/globals"]` in `tsconfig.app.json` and import `test`/`expect` from `vitest` where needed.
+- Playwright browsers not installed: run `npx playwright install` once locally and ensure the CI step `Install Playwright browsers` is present.
+- Git commit blocked: check Conventional Commit format and ESLint/Prettier errors fixed by `lint-staged`.
+
+## License
+
+See `LICENSE` for license information.

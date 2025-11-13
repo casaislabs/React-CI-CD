@@ -1,0 +1,16 @@
+name: Commitlint
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate commit messages
+        uses: wagoid/commitlint-github-action@v6
