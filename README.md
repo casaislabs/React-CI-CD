@@ -145,6 +145,90 @@ Workflow file: `.github/workflows/deploy.yml`
 - Publishes `dist` via `actions/deploy-pages`
 - After enabling Pages (Settings → Pages → Source: "GitHub Actions"), the deployment URL appears in the `deploy` job output
 
+## CI/CD Operations
+
+- Open a PR: create a feature branch, push, and open a PR to `main` with a Conventional Commit title (e.g., `chore: set up tests, CI/CD, commit hooks`).
+- Checks on PR: CI (lint, typecheck, unit/coverage, build, E2E), Commitlint (commit messages), Semantic PR (PR title).
+- Merge policy: use “Squash and merge” to keep a linear history; the final commit uses the PR title.
+- Post-merge: delete the feature branch locally and on remote.
+
+## GitHub Actions Settings
+
+- Actions permissions: select `Allow all actions and reusable workflows`.
+- Workflow permissions: set default `Read and write permissions` so deploy can publish Pages.
+- Fork pull requests: require approval for first-time contributors (recommended for public repos).
+
+## Branch Protection (Recommended)
+
+- Settings → Branches → Add rule for `main`:
+- Require a pull request before merging
+- Require status checks to pass before merging (mark `CI`, `Commitlint`, `Semantic Pull Request` as required)
+- Require branches to be up to date before merging
+- Optional: Require linear history and minimum 1 approval
+
+## Pages Deployment — Step‑by‑Step
+
+- Enable Pages: Settings → Pages → Source: GitHub Actions.
+- Trigger deploy: merge to `main` or re‑run the “Deploy to GitHub Pages” workflow.
+- Find URL: open Actions → last “Deploy to GitHub Pages” run → `page_url` in the `deploy` job.
+- Validate site: title “Vite + React”, counter button increments, assets load under `/<repository>/`.
+
+## Re‑run and Trigger
+
+- Re‑run deploy: Actions → “Deploy to GitHub Pages” → Re‑run jobs.
+- Manual trigger: push to `main` (e.g., empty commit) to start a fresh deploy:
+
+```
+git checkout main
+git pull
+git commit --allow-empty -m "chore: trigger pages deploy"
+git push
+```
+
+## Local Cleanup and Sync
+
+- If `git pull` aborts due to untracked `coverage/` or `test-results/`, remove local artifacts:
+
+```
+# PowerShell
+Remove-Item -Recurse -Force .\coverage
+Remove-Item -Recurse -Force .\test-results
+
+# or with Git
+git clean -fd coverage test-results
+git pull
+```
+
+- To stop tracking generated artifacts already in the repo:
+
+```
+git checkout -b chore/remove-generated-artifacts
+git rm -r --cached coverage test-results
+git commit -m "chore: remove generated artifacts from repo"
+git push -u origin chore/remove-generated-artifacts
+# open PR and merge
+```
+
+## Badges (Optional)
+
+- Build status:
+
+```
+[![CI](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml)
+```
+
+- Deploy status:
+
+```
+[![Deploy](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml)
+```
+
+- Live demo:
+
+```
+[Live Demo](https://casaislabs.github.io/React-CI-CD/)
+```
+
 ## Dependabot
 
 - `.github/dependabot.yml` updates npm dependencies weekly, opening PRs automatically.
