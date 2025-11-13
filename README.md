@@ -1,6 +1,6 @@
 # React + TypeScript + Vite — CI/CD, Tests, and Best Practices
 
-Production-grade setup with tests, commit conventions, and automated CI/CD to GitHub Pages.
+Production-ready setup with tests, commit conventions, and automated CI/CD to GitHub Pages.
 [![CI](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml) [![Deploy](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://casaislabs.github.io/React-CI-CD/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Table of Contents
@@ -22,7 +22,7 @@ Production-grade setup with tests, commit conventions, and automated CI/CD to Gi
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 
-This project showcases a professional setup for a Vite + React + TypeScript application, highlighting unit/integration testing, E2E testing, strict linting and typing, commit conventions, and automated CI/CD.
+A professional Vite + React + TypeScript setup with unit/integration tests, E2E tests, strict linting and typing, commit conventions, and automated CI/CD.
 
 ## Highlights
 
@@ -62,11 +62,10 @@ This project showcases a professional setup for a Vite + React + TypeScript appl
   - `npm run test:coverage`
   - `npx playwright install`
   - `npm run test:e2e`
-- Open a PR with a Conventional Commit title, for example:
-  - `docs: refine README header with badges and tagline`
-- In Actions, confirm required checks are green: `commitlint`, `build-and-test (20)`, `validate-title`.
+- Open a PR with a Conventional Commit title (e.g., `docs: refine README header with badges and tagline`).
+- In Actions, ensure required checks are green: `commitlint`, `build-and-test (20)`, `validate-title`.
 - Merge using “Squash and merge”; deployment runs automatically.
-- Access the site: [https://casaislabs.github.io/React-CI-CD/](https://casaislabs.github.io/React-CI-CD/)
+- Visit the site: [https://casaislabs.github.io/React-CI-CD/](https://casaislabs.github.io/React-CI-CD/)
 
 ## Getting Started
 
@@ -80,7 +79,7 @@ Install dependencies:
 npm install
 ```
 
-Husky hooks are installed automatically through the `prepare` script. If needed, run:
+Husky hooks install automatically via the `prepare` script. If needed, run:
 
 ```
 npm run prepare
@@ -95,7 +94,7 @@ npm run dev
 ## Scripts
 
 - `npm run dev` — start Vite dev server
-- `npm run build` — TypeScript build graph then Vite production build
+- `npm run build` — build TypeScript project graph, then Vite production build
 - `npm run preview` — serve `dist` on `http://localhost:4173`
 - `npm run lint` — run ESLint across the repo
 - `npm run lint:fix` — auto-fix ESLint issues
@@ -132,7 +131,7 @@ npm run test:e2e
 
 ## Linting and Formatting
 
-- ESLint configuration is in `eslint.config.js` with TypeScript, React Hooks, Refresh, and a11y rules. Prettier compatibility is enabled to avoid stylistic conflicts.
+- ESLint configuration is in `eslint.config.js` with TypeScript, React Hooks, Refresh, and a11y rules. Prettier compatibility avoids stylistic conflicts.
 - Prettier configuration is in `prettier.config.cjs`.
 - `lint-staged` configuration is in `.lintstagedrc.json` to fix and format staged files on commit.
 
@@ -176,7 +175,7 @@ Workflow file: `.github/workflows/deploy.yml`
 
 - Open a PR: create a feature branch, push, and open a PR to `main` with a Conventional Commit title (e.g., `chore: set up tests, CI/CD, commit hooks`).
 - Checks on PR: CI (lint, typecheck, unit/coverage, build, E2E), Commitlint (commit messages), Semantic PR (PR title).
-- Merge policy: use “Squash and merge” to keep a linear history; the final commit uses the PR title.
+- Merge policy: use “Squash and merge” to keep a linear history; the final commit takes the PR title.
 - Post-merge: delete the feature branch locally and on remote.
 
 ## GitHub Actions Settings
@@ -199,19 +198,19 @@ Workflow file: `.github/workflows/deploy.yml`
 - Do not allow bypassing the above settings; include administrators.
 - Disallow force pushes and deletions on `main`.
 
-Solo maintenance: set approvals to `0` (no reviews required) while keeping required status checks, up‑to‑date branches, conversation resolution, and linear history.
+For solo maintenance, set required approvals to `0` while keeping required status checks, up‑to‑date branches, conversation resolution, and linear history.
 
 ## Pages Deployment — Step‑by‑Step
 
 - Enable Pages: Settings → Pages → Source: GitHub Actions.
-- Trigger deploy: merge to `main` or re‑run the “Deploy to GitHub Pages” workflow.
+- Trigger a deploy: merge to `main` or re‑run the “Deploy to GitHub Pages” workflow.
 - Find URL: open Actions → last “Deploy to GitHub Pages” run → `page_url` in the `deploy` job.
 - Validate site: title “Vite + React”, counter button increments, assets load under `/<repository>/`.
 
 ## Re‑run and Trigger
 
 - Re‑run deploy: Actions → “Deploy to GitHub Pages” → Re‑run jobs.
-- Manual trigger: push to `main` (e.g., empty commit) to start a fresh deploy:
+- Manual trigger: push to `main` (e.g., an empty commit) to start a fresh deploy:
 
 ```
 git checkout main
@@ -276,9 +275,9 @@ git push -u origin chore/remove-generated-artifacts
 
 - Vitest runs E2E tests unexpectedly: ensure `vitest.config.ts` excludes `tests/e2e/**`.
 - Missing `test` globals: ensure `types: ["vitest/globals"]` in `tsconfig.app.json` and import `test`/`expect` from `vitest` where needed.
-- Playwright browsers not installed: run `npx playwright install` once locally and ensure the CI step `Install Playwright browsers` is present.
+- If Playwright browsers are missing, run `npx playwright install` locally and ensure the CI step “Install Playwright browsers” is present.
 - Git commit blocked: check Conventional Commit format and ESLint/Prettier errors fixed by `lint-staged`.
 
 ## License
 
-See `LICENSE` for license information.
+See `LICENSE` for details.
