@@ -7,6 +7,8 @@ Production-grade setup with tests, commit conventions, and automated CI/CD to Gi
 
 - [Highlights](#highlights)
 - [Tech Stack](#tech-stack)
+- [Quick Links](#quick-links)
+- [Quick Demo](#quick-demo)
 - [Getting Started](#getting-started)
 - [Scripts](#scripts)
 - [Testing](#testing)
@@ -43,6 +45,28 @@ This project showcases a professional setup for a Vite + React + TypeScript appl
 - `Playwright`
 - `Husky` + `lint-staged` + `Commitlint`
 - `GitHub Actions` + `GitHub Pages`
+
+## Quick Links
+
+- Actions: [Actions](https://github.com/casaislabs/React-CI-CD/actions)
+- CI workflow: [.github/workflows/ci.yml](.github/workflows/ci.yml)
+- Deploy workflow: [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
+- Live Demo: [https://casaislabs.github.io/React-CI-CD/](https://casaislabs.github.io/React-CI-CD/)
+
+## Quick Demo
+
+- Install and verify locally:
+  - `npm ci`
+  - `npm run lint`
+  - `npm run typecheck`
+  - `npm run test:coverage`
+  - `npx playwright install`
+  - `npm run test:e2e`
+- Open a PR with a Conventional Commit title, for example:
+  - `docs: refine README header with badges and tagline`
+- In Actions, confirm required checks are green: `commitlint`, `build-and-test (20)`, `validate-title`.
+- Merge using “Squash and merge”; deployment runs automatically.
+- Access the site: [https://casaislabs.github.io/React-CI-CD/](https://casaislabs.github.io/React-CI-CD/)
 
 ## Getting Started
 
@@ -218,26 +242,6 @@ git rm -r --cached coverage test-results
 git commit -m "chore: remove generated artifacts from repo"
 git push -u origin chore/remove-generated-artifacts
 # open PR and merge
-```
-
-## Badges (Optional)
-
-- Build status:
-
-```
-[![CI](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml)
-```
-
-- Deploy status:
-
-```
-[![Deploy](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml)
-```
-
-- Live demo:
-
-```
-[Live Demo](https://casaislabs.github.io/React-CI-CD/)
 ```
 
 ## Dependabot
