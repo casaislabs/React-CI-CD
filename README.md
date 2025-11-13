@@ -1,5 +1,8 @@
 # React + TypeScript + Vite — CI/CD, Tests, and Best Practices
 
+Production-grade setup with tests, commit conventions, and automated CI/CD to GitHub Pages.
+[![CI](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/ci.yml) [![Deploy](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml/badge.svg)](https://github.com/casaislabs/React-CI-CD/actions/workflows/deploy.yml) [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://casaislabs.github.io/React-CI-CD/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ## Table of Contents
 
 - [Highlights](#highlights)
@@ -171,6 +174,8 @@ Workflow file: `.github/workflows/deploy.yml`
 - Require linear history.
 - Do not allow bypassing the above settings; include administrators.
 - Disallow force pushes and deletions on `main`.
+
+Solo maintenance: set approvals to `0` (no reviews required) while keeping required status checks, up‑to‑date branches, conversation resolution, and linear history.
 
 ## Pages Deployment — Step‑by‑Step
 
